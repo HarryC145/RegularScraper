@@ -43,8 +43,8 @@ writing = False
 total_count = 0
 irc_server = 'irc.underworld.no'
 irc_port = 6667
-irc_channel_bot = '#newsgrabberbot'
-irc_channel_main = '#newsgrabber'
+irc_channel_bot = '#ReguarScraper'
+irc_channel_main = '#RegularBot'
 irc_nick = 'newsbuddy'
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 irc.connect((irc_server, irc_port))
@@ -58,7 +58,7 @@ def new_socket():
 	threading.Thread(target = irc_bot).start()
 
 def irc_bot_start():
-	irc.send("USER " + irc_nick + " " + irc_nick + " " + irc_nick + " :This is the bot for " + irc_channel_main + ". https://github.com/ArchiveTeam/NewsGrabber.\n")
+	irc.send("USER " + irc_nick + " " + irc_nick + " " + irc_nick + " :This is the bot for " + irc_channel_main + ". https://github.com/HarryC145/RegularScraper.\n")
 	irc.send("NICK " + irc_nick + "\n")
 	irc.send("JOIN " + irc_channel_main + "\n")
 	irc.send("JOIN " + irc_channel_bot + "\n")
@@ -277,7 +277,7 @@ def movefiles():
 						shutil.rmtree("./" + folder)
 	for root, dirs, files in os.walk("./ready"):
 		for file in files:
-			os.rename(os.path.join(root, file), os.path.join(root, re.sub(".*-list(?:-videos)?(?:-immediate)?(?:_temp)?(?:[01]\.[0-9]+)?", "news", file)))
+			os.rename(os.path.join(root, file), os.path.join(root, re.sub(".*-list(?:-videos)?(?:-immediate)?(?:_temp)?(?:[01]\.[0-9]+)?", "regular", file)))
 	print("All finished WARCs have been moved.")
 
 def loadfiles():
@@ -364,9 +364,9 @@ def checkrefresh():
 		new_services = 0
 		if os.path.isdir('./services'):
 			shutil.rmtree('./services')
-		os.system('git clone https://github.com/ArchiveTeam/NewsGrabber.git')
-		shutil.copytree('./NewsGrabber/services', './services')
-		shutil.rmtree('./NewsGrabber')
+		os.system('git clone https://github.com/HarryC145/RegularScraper.git')
+		shutil.copytree('./RegularScraper/services', './services')
+		shutil.rmtree('./RegularScraper')
 		reload(services)
 		writehtmlserviceslist()
 		for root, dirs, files in os.walk("./services"):
